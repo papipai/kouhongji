@@ -1,0 +1,33 @@
+body{
+    background: #fff;
+}
+.kh_code{
+    text-align:center;
+    margin-top:20%;
+    padding:20px;
+}
+.kh_code img{
+    width:200px;
+    height:auto;
+}
+.kh_text{
+    font-size:20px;
+    text-align:center;
+    color:#FD536E;
+    font-weight:600;
+    padding:20px;
+}
+
+			
+.footer{
+    text-align:center;
+    padding:20px;
+}
+.kh_btn{
+    width:68%;
+    color:#fff;
+    background:#FF1E82;
+    line-height:35px;
+    font-size:14px;
+    border:none;
+}

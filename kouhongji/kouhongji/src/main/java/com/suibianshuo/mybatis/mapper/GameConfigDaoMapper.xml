@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.GameConfigDao">  
+	<!-- 根据游戏模式查询配置数据 -->
+    <select id="getGameConfig" resultType="GameConfig">  
+        select num,hard,time,speed_arr from game_config where mode = #{mode} and is_enable = 'Y';
+    </select> 
+    <!--新增 -->
+    <insert id="addGameConfig" parameterType="GameConfig">
+        insert into game_config(mode,level,num,time,speed_arr) values(#{mode},#{level},#{num},#{time},#{speed_arr})
+    </insert>
+    <!-- 更新 -->
+    <update id="updateGameConfig" parameterType="GameConfig">
+        update game_config set is_enable = #{is_enable} where id = #{id};
+    </update>
+    <!--删除 -->
+    <delete id="deleteGameConfig" parameterType="int">
+    	 delete from game_config where id=#{id}
+    </delete>
+</mapper>  

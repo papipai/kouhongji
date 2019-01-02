@@ -1,0 +1,70 @@
+.pages{
+    text-align:center;
+    padding:15px;
+}
+.tips{
+	opacity: 0.54;
+	font-family: PingFangSC-Regular;
+	font-size: 14px;
+	color: #000000;
+	margin-top: 33px;
+	text-align: center;
+}
+.kh_text{
+    color:#ffffff;
+    font-weight:500;
+    font-size:25px;
+    width: 240px;
+	height:45px;
+	line-height:45px;
+	border-radius: 24.5px;
+	background: #FD536E;
+	text-align: center;
+	margin: auto;
+	font-size: 20px;
+	font-family: PingFangSC-Regular;
+	margin-top: 33px;
+}
+
+/* .order_list{
+	margin: 0px 15px 9px 15px;
+	border: 0px solid red;
+	border-radius:4px;
+	background: #ffffff;
+} */
+.order_list span{
+	opacity: 0.87;
+font-family: .PingFang-SC-Medium;
+font-size: 16px;
+color: #000000;
+}
+/* .order_list .goodsimg{
+	width:67px;
+	height:67px;
+	float:left;
+	border: 0px solid red;
+	background: #D8D8D8;
+	border-radius: 4px 0 0 4px;
+} */
+/* .order_list .goodsname{
+	float:left;
+	border: 0px solid red;
+} */
+/* .order_list .address{
+	font-size:14px;
+	color:#FD536E;
+	text-align:center;
+	border: 0px solid red;
+}
+.order_list .address {
+	font-size:14px;
+} */
+
+.kh_img{
+    margin-top: 86px;
+    padding: 0px 15px;
+}
+.kh_img img{
+    width:100%;
+    height:auto;
+}

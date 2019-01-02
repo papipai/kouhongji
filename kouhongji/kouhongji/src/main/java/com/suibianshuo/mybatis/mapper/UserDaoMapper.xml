@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.UserDao">  
+	<sql id="Base_Column_Lists" >
+    a.id,a.openid,a.unionid,a.nickname,a.headimgurl,a.sex,a.country,a.province,a.city,
+    a.language,DATE_FORMAT(a.create_time, '%Y-%m-%d %H:%i:%S') as create_time,
+    DATE_FORMAT(a.update_time, '%Y-%m-%d %H:%i:%S') as update_time,a.money,a.redpacket,
+    a.source,a.status,b.partner_name
+    </sql>
+	<!-- 用户总数 + 账号和名称匹配 -->
+    <select id="getCount" parameterType="com.suibianshuo.entity.mobile.User" resultType="int">  
+        select count(*)
+        from `user` a left join partner b on a.source = b.`key` where 1 = 1 
+        <if test="openid != null and openid != ''">
+        	and openid = #{openid,jdbcType=VARCHAR}
+        </if>
+        <if test="sex != null and sex != ''">
+        	and sex = #{sex,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+        	and a.status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="source != null and source != ''">
+        	and source = #{source,jdbcType=VARCHAR}
+        </if>
+        <if test="nickname != null and nickname != ''">
+        	and nickname like CONCAT('%','${nickname}','%')
+        </if>
+        <if test="create_time != null and create_time != ''">
+        	and a.create_time like CONCAT('%','${create_time}','%')
+        </if>
+       <if test="beginTime != null and endTime != null">
+        	and a.create_time between #{beginTime,jdbcType=VARCHAR}
+        	and #{endTime,jdbcType=VARCHAR}
+        </if>
+    </select> 
+    <!-- 查询用户ByOpenId -->
+    <select id="getUser" resultType="com.suibianshuo.entity.mobile.User">  
+        select * from user where openid = #{openid}
+    </select>
+    <!-- 查询用户上线 -->
+    <select id="getUpperLine" resultType="com.suibianshuo.entity.mobile.User">  
+        select * from `user` where openid = #{openid} 
+        AND source NOT in (SELECT `key` FROM partner)
+    </select>
+    <!-- 查询用户下线 -->
+    <select id="getOffLineList" resultType="com.suibianshuo.entity.mobile.User">  
+        select * from `user` where  source = #{openid}
+    </select>
+    <!-- 查询用户 -->
+    <select id="getUserList" parameterType="User" resultType="com.suibianshuo.entity.mobile.User">  
+        select 
+        <include refid="Base_Column_Lists" />
+        from `user` a left join partner b on a.source = b.`key` where 1 = 1 
+        <if test="openid != null and openid != ''">
+        	and openid = #{openid,jdbcType=VARCHAR}
+        </if>
+        <if test="sex != null and sex != ''">
+        	and sex = #{sex,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+        	and a.status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="source != null and source != ''">
+        	and source = #{source,jdbcType=VARCHAR}
+        </if>
+        <if test="nickname != null and nickname != ''">
+        	and nickname like CONCAT('%','${nickname}','%')
+        </if>
+        <if test="create_time != null and create_time != ''">
+        	and a.create_time like CONCAT('%','${create_time}','%')
+        </if>
+       	<if test="beginTime != null and endTime != null">
+        	and a.create_time between #{beginTime,jdbcType=VARCHAR}
+        	and #{endTime,jdbcType=VARCHAR}
+        </if>
+		<if test="sort != null and sort != '' and order != null and order != ''">
+			order by ${sort} ${order}
+		</if>
+		<if test="start >= 0 and pageSize > 0">
+			limit #{start},#{pageSize}
+		</if>
+    </select>   
+    <!--新增用户 -->
+    <insert id="addUser" parameterType="User">
+        insert into user
+     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+       <if test="city != null" >
+        city,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+       <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+        <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+       <if test="create_time != null" >
+        #{create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    </insert>
+    <!-- 更新用户 -->
+    <update id="updateUser" parameterType="User">
+        update user 
+        <set>
+        	<if test="money != null">
+        		money = #{money},
+        	</if>
+        	<if test="redpacket != null">
+        		redpacket = #{redpacket},
+        	</if>
+        	<if test="status != null">
+        		status = #{status},
+        	</if>
+        </set>
+        where openid=#{openid}
+    </update>
+    <!--删除用户 -->
+    <delete id="deleteUserById" parameterType="int">
+    	 delete from user where id=#{id}
+    </delete>
+</mapper>  

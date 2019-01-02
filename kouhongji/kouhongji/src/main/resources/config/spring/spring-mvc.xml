@@ -1,0 +1,51 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
+		http://www.springframework.org/schema/tx 
+		
+		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+		http://www.springframework.org/schema/task  
+		http://www.springframework.org/schema/task/spring-task-3.2.xsd ">
+	<!--打开注解 -->
+	<mvc:annotation-driven/>
+	<!--可以访问静态文件 -->
+	<mvc:default-servlet-handler/>
+	<!--配置扫描包 -->
+	<context:component-scan base-package="com.suibianshuo"/>
+	
+	<!-- 扫描任务 -->
+	  
+    <task:annotation-driven />
+  	<context:component-scan base-package="com.suibianshuo.util.common" />
+	
+	<!-- 这个就是可以让外部访问的文件夹-->
+	<mvc:resources mapping="/common/**" location="/common/" />
+	
+	<!--内部视图解析器，JSP与JSTL模板 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!--指定视图渲染类 -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<!--自动添加到路径中的前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!--自动添加到路径中的后缀 -->
+		<property name="suffix" value=".jsp" />
+		<!--设置所有视图的内容类型，如果视图本身设置内容类型视图类可以忽略 -->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>
+
+
+</beans>

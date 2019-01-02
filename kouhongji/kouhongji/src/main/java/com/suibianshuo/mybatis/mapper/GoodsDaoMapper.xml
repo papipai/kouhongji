@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.GoodsDao">  
+	<!-- 所有口红数量 -->
+    <select id="getCount" resultType="int">  
+        select count(*) from user where name like #{search_name} and account like #{search_account}
+    </select> 
+    <!-- 查询所有口红信息 -->
+    <select id="getAllGoods" resultType="com.suibianshuo.entity.mobile.Goods">  
+        select * from goods ORDER BY goods_price ASC;
+    </select>   
+    <!--新增用户 -->
+    <insert id="addGoods" parameterType="Goods">
+        insert into user
+     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shop_price != null" >
+        shop_price,
+      </if>
+      <if test="goods_name != null" >
+        goods_name,
+      </if>
+      <if test="color_number != null" >
+        color_number,
+      </if>
+      <if test="is_zheng != null" >
+        is_zheng,
+      </if>
+      <if test="goods_price != null" >
+        goods_price,
+      </if>
+      <if test="goods_img != null" >
+        goods_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shop_price != null" >
+        #{shop_price,jdbcType=DECIMAL},
+      </if>
+      <if test="goods_name != null" >
+        #{goods_name,jdbcType=VARCHAR},
+      </if>
+      <if test="color_number != null" >
+        #{color_number,jdbcType=VARCHAR},
+      </if>
+      <if test="is_zheng != null" >
+        #{is_zheng,jdbcType=VARCHAR},
+      </if>
+      <if test="goods_price != null" >
+        #{goods_price,jdbcType=DECIMAL},
+      </if>
+      <if test="goods_img != null" >
+        #{goods_img,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+    </insert>
+    <!-- 更新用户 -->
+    <update id="updateUser" parameterType="User">
+        update user set name=#{name},account=#{account},phone=#{phone},email=#{email},address=#{address} where id=#{id}
+    </update>
+    <!--删除用户 -->
+    <delete id="deleteUserById" parameterType="int">
+    	 delete from user where id=#{id}
+    </delete>
+</mapper>  

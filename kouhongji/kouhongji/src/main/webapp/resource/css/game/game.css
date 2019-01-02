@@ -1,0 +1,252 @@
+/**
+ * Created by jicemoon on 2015/9/1.
+ */
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body,html{
+    overflow-y: hidden;
+    font-family: PingFangSC-Regular;
+}
+img{
+    display: block;
+}
+.BulletNumBox{
+    position: absolute;
+    width: 4.08rem;
+    height: 4.08rem;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    line-height: 4.08rem;
+    font-size: 1.2rem;
+    top: 5.94rem;
+    z-index: 30;
+
+*filter: Glow(color=#000, strength=1);
+}
+.levelSwitchBox{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background: -webkit-linear-gradient(var(--wx_color), var(--wx_color1)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(var(--wx_color), var(--wx_color1)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(var(--wx_color), var(--wx_color1)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(var(--wx_color), var(--wx_color1)); /* 鏍囧噯鐨勮娉� */
+}
+.hidden{
+    animation:hidden 1s infinite;
+    animation-iteration-count:1;
+    animation-delay:2s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes hidden
+{
+from {opacity: 1}
+to {opacity: 0;}
+}
+.levelSwitchBoxMain{
+    width: 100%;
+    height: 100%;
+    /*margin-top: 2.55rem;*/
+}
+.levelSwitchBoxBottom{
+    width: 4rem;
+    position: absolute;
+    bottom: .48rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.clearfix {
+    zoom: 1;
+}
+.clearfix:after, .clearfix:before {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.layoutRoot{
+    position: relative;
+    text-align: center;
+}
+.PopupBox{
+    width: 6.0rem;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    border-radius: 0.08rem;
+    box-shadow:0 0.02rem 0.05rem #888888;
+}
+#gameOverBox{
+    height: 4rem;
+}
+#gameOverBoxTitle, #gameOverMsgTitle{
+    font-size: .48rem;
+    line-height: .67rem;
+    text-align: center;
+    color: #FD536E;
+    font-weight: border;
+    margin-top: 0.55rem;
+}
+#gameOverBoxTime, #gameOverMsgTime{
+    font-size: .36rem;
+    line-height: .50rem;
+    color: var(--wx_color);
+    margin:.12rem;
+    width: 100%;
+    height: 0.5rem;
+    text-align: center;
+}
+.PopupBoxBtn{
+    font-size: .36rem;
+    line-height: 0.8rem;
+    text-align: center;
+    /* height: 0.8rem; */
+    background-color: #FD536E;
+    border-radius: 0.8rem;
+    color: white;
+    margin: 0 auto;
+    width: 70%;
+    padding: 0px 10px;
+}
+#gameOverBoxBtn,#gameSuccessBoxBtn,#gameOverMsgBtn{
+    width: 70%;
+}
+#gameOverBoxBtn{
+    margin-top: 0.18rem;
+}
+#gameSuccessBoxBtn,#gameOverMsgBtn{
+    margin-top: .25rem;
+    margin-bottom: .38rem;
+}
+.close{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.close img{
+    width: 0.54rem;
+    height: 0.54rem;
+    padding: .24rem .32rem;
+}
+#gameSuccessProductBox{
+    margin-top: 0.65rem;
+    width: 1.72rem;
+    height: 2.13rem;
+    border: solid 1px var(--wx_color);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.gameSuccessTextLine1,.gameSuccessTextLine2{
+    font-size: .22rem;
+    line-height: 0.3rem;
+    color: white;
+    text-align: center;
+}
+.gameSuccessTextLine2{
+    font-weight: border;
+}
+#gameSuccessBoxText, #gameSuccessMsgText{
+    font-size: .48rem;
+    line-height: .67rem;
+    color: var(--wx_color);
+    text-align: center;
+    font-weight: bolder;
+    margin-top: .32rem;
+}
+#gameSuccessProductPic,#gameSuccessProductPic img{
+    width: 1.4rem;
+    height: 1.4rem;
+}
+#gameSuccessProductPic{
+    margin: 0 auto;
+    margin-top: 0.08rem;
+}
+#gameSuccessProductTextBox{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .76rem;
+    background-color: var(--wx_color);
+}
+.layoutRoot .game{
+   position: relative;
+   left: 50%;
+   transform: translateX(-50%);
+}
+.layoutRoot .game .tips{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--wx_color);
+    display: inline-block;
+    min-width: 150px;
+    border: 1px solid rgba(243, 0, 255, 0.5);
+    box-shadow: 5px 5px 5px var(--wx_color1);
+    font-size: 20px;
+    padding: 5px 10px;
+    text-align: left;
+    color:#cccccc;
+}
+.layoutRoot .game .levelbox{
+    position: absolute;
+    left: .32rem;
+    /*top: 1.28rem;*/
+    top:.28rem;
+}
+#timebox{
+    position: absolute;
+    margin-top: .24rem;
+    right: .24rem;
+    top:0;
+    width: 1.45rem;
+    height: 1.35rem;
+    font-size: .55rem;
+    text-align: center;
+    line-height: 1.40rem;
+}
+.layoutRoot .game .levelbox .level{
+    float: left;
+    width: 1.04rem;
+    margin-right: .20rem;
+}
+.level img{width: 100%;}
+.layoutRoot .game .tips>p span{
+    color:#ffffff;
+}
+.layoutRoot .game .tips>p:nth-child(2){
+    color: #85ff02;
+}
+.blur {
+filter: url(blur.svg#blur);
+-webkit-filter: blur(10px);
+-moz-filter: blur(10px);
+-ms-filter: blur(10px);
+filter: blur(10px);
+filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+}
+.bulletsNumBox{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    overflow: hidden;
+    top: 4.94rem;
+    display: none;
+}
+.bulletsNum{
+    float: left;
+    height: 1.04rem;
+    display: none;
+}

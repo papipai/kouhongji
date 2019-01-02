@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.AddressDao">  
+	
+	<select id="getAllAddress" resultType="Address">
+		SELECT * from address where openid = #{openid} ORDER BY create_time DESC
+	</select>
+    <!--新增地址 -->
+    <insert id="addAddress" parameterType="Address">
+        insert into address
+	     <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="openid != null" >
+	        openid,
+	      </if>
+	      <if test="username != null" >
+	        username,
+	      </if>
+	      <if test="phone != null" >
+	        phone,
+	      </if>
+	      <if test="address != null" >
+	        address,
+	      </if>
+	      <if test="code != null" >
+	        code,
+	      </if>
+	      <if test="create_time != null" >
+	        create_time
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="openid != null" >
+	        #{openid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="username != null" >
+	        #{username,jdbcType=VARCHAR},
+	      </if>
+	      <if test="phone != null" >
+	        #{phone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="address != null" >
+	        #{address,jdbcType=VARCHAR},
+	      </if>
+	      <if test="code != null" >
+	        #{code,jdbcType=VARCHAR},
+	      </if>
+	      <if test="create_time != null" >
+	        #{create_time,jdbcType=TIMESTAMP}
+	      </if>
+	    </trim>
+    </insert>
+    <!-- 更新用户 -->
+    <update id="updateAddress" parameterType="Address">
+        update address set username = #{username},phone=#{phone},address=#{address},code=#{code} where id=#{id}
+    </update>
+    <!--删除用户 -->
+    <delete id="deleteAddressById" parameterType="int">
+    	 delete from user where id=#{id}
+    </delete>
+</mapper>  

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.PartnerDao">  
+	<!-- 合伙人数量 -->
+    <select id="getCountPartner" resultType="int">  
+        select count(*) from partner ;
+    </select> 
+    <!-- 查询所有合伙人 -->
+    <select id="getAllPartner" resultType="com.suibianshuo.entity.web.Partner">  
+        select * from partner where 1=1
+        <if test="partner_name != null">
+        	and partner_name = #{partner_name},
+        </if>
+    </select>   
+    <!--新增合伙人 -->
+    <insert id="addPartner" parameterType="Partner">
+        insert into partner
+     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partner_name != null" >
+        partner_name,
+      </if>
+      <if test="key != null" >
+        key,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partner_name != null" >
+        #{partner_name,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      
+    </trim>
+    </insert>
+    <!-- 更新用户 -->
+    <update id="updatePartner" parameterType="Partner">
+        update partner set status = #{status} where id = #{id};
+    </update>
+    <!--删除用户 -->
+    <delete id="deletePartnerById" parameterType="int">
+    	 delete from partner where id=#{id}
+    </delete>
+</mapper>  

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.UserPlayLogDao">  
+	
+    <!--新增地址 -->
+    <insert id="addUserPlayLog" parameterType="UserPlayLog">
+        insert into user_play_log 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="openid != null" >
+	        openid,
+	      </if>
+	      <if test="mode != null" >
+	        mode,
+	      </if>
+	      <if test="goodsid != null" >
+	        goodsid,
+	      </if>
+	      <if test="fail_level != null" >
+	        fail_level,
+	      </if>
+	      <if test="is_success != null" >
+	        is_success,
+	      </if>
+	      <if test="device != null" >
+	        device,
+	      </if>
+	      <if test="play_time != null" >
+	        play_time
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="openid != null" >
+	        #{openid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="mode != null" >
+	        #{mode,jdbcType=INTEGER},
+	      </if>
+	      <if test="goodsid != null" >
+	        #{goodsid,jdbcType=INTEGER},
+	      </if>
+	      <if test="fail_level != null" >
+	        #{fail_level,jdbcType=INTEGER},
+	      </if>
+	      <if test="is_success != null" >
+	        #{is_success,jdbcType=VARCHAR},
+	      </if>
+	      <if test="device != null" >
+	        #{device,jdbcType=VARCHAR},
+	      </if>
+	      <if test="play_time != null" >
+	        #{play_time,jdbcType=TIMESTAMP}
+	      </if>
+	    </trim>
+    </insert>
+</mapper>  

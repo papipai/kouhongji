@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.suibianshuo.mybatis.mapper.UserReChargeDao">  
+
+	<sql id="Base_Column_Lists" >
+    a.out_trade_no,b.nickname,b.sex,a.total_fee,b.source,c.partner_name,
+    DATE_FORMAT(a.create_time, '%Y-%m-%d %H:%i:%S') as create_time
+    </sql>
+
+
+	<!-- 用户总数 + 账号和名称匹配 -->
+    <select id="getCount" resultType="int">  
+        select count(*) 
+		from user_recharge a 
+		LEFT JOIN `user` b ON a.openid = b.openid 
+		LEFT JOIN partner c ON b.source = c.key
+		where 1 = 1
+		<if test="out_trade_no != null and out_trade_no != ''">
+			and a.out_trade_no = #{out_trade_no,jdbcType=VARCHAR}
+		</if>
+		<if test="nickname != null and nickname != ''">
+			and b.nickname like CONCAT('%','${nickname}','%')
+		</if>
+		<if test="sex != null and sex != ''">
+			and b.sex = #{sex,jdbcType=VARCHAR}
+		</if>
+		<if test="source != null and source != ''">
+			and b.source = #{source,jdbcType=VARCHAR}
+		</if>
+		<if test="create_time != null and create_time != ''">
+        	and a.create_time like CONCAT('%','${create_time}','%')
+        </if>
+       	<if test="beginTime != null and endTime != null">
+        	and a.create_time between #{beginTime,jdbcType=VARCHAR}
+        	and #{endTime,jdbcType=VARCHAR}
+        </if>
+    </select> 
+    <!-- 查询用户充值 -->
+    <select id="getUserRecharge" resultType="com.suibianshuo.entity.mobile.UserReCharge">  
+        select 
+		<include refid="Base_Column_Lists" /> 
+		from user_recharge a 
+		LEFT JOIN `user` b ON a.openid = b.openid 
+		LEFT JOIN partner c ON b.source = c.key
+		where 1 = 1
+		<if test="out_trade_no != null and out_trade_no != ''">
+			and a.out_trade_no = #{out_trade_no,jdbcType=VARCHAR}
+		</if>
+		<if test="nickname != null and nickname != ''">
+			and b.nickname like CONCAT('%','${nickname}','%')
+		</if>
+		<if test="sex != null and sex != ''">
+			and b.sex = #{sex,jdbcType=VARCHAR}
+		</if>
+		<if test="source != null and source != ''">
+			and b.source = #{source,jdbcType=VARCHAR}
+		</if>
+		<if test="create_time != null and create_time != ''">
+        	and a.create_time like CONCAT('%','${create_time}','%')
+        </if>
+       	<if test="beginTime != null and endTime != null">
+        	and a.create_time between #{beginTime,jdbcType=VARCHAR}
+        	and #{endTime,jdbcType=VARCHAR}
+        </if>
+        <if test="sort != null and sort != '' and order != null and order != ''">
+			order by ${sort} ${order}
+		</if>
+        <if test="start >= 0 and pageSize > 0">
+			limit #{start},#{pageSize}
+		</if>
+    </select> 
+    <!-- 查询下线用户充值的总金额 -->
+    <select id="getOffLineUserSumRecharge" resultType="com.suibianshuo.entity.mobile.UserReCharge">  
+        SELECT b.headimgurl,b.nickname,convert(SUM(total_fee)*0.15,decimal(10,2)) total_fee 
+        FROM user_recharge a
+		LEFT JOIN `user` b ON a.openid = b.openid 
+        <foreach collection="list" item="item" open="where a.openid in(" close=")" separator=",">
+   			#{item}
+   		</foreach>
+        GROUP BY a.openid
+    </select> 
+      
+    <!--新增用户充值 -->
+    <insert id="addUserReCharge" parameterType="UserReCharge">
+        insert into user_recharge
+     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="out_trade_no != null" >
+        out_trade_no,
+      </if>
+      <if test="spbill_create_ip != null" >
+        spbill_create_ip,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="total_fee != null" >
+        total_fee,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="out_trade_no != null" >
+        #{out_trade_no,jdbcType=VARCHAR},
+      </if>
+      <if test="spbill_create_ip != null" >
+        #{spbill_create_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="total_fee != null" >
+        #{total_fee,jdbcType=DECIMAL},
+      </if>
+       <if test="create_time != null" >
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      
+    </trim>
+    </insert>
+    <!-- 更新用户 -->
+    <update id="updateUser" parameterType="UserReCharge">
+        update user set money = #{money} where openid=#{openid}
+    </update>
+    <!--删除用户 -->
+    <delete id="deleteUserById" parameterType="int">
+    	 delete from user where id=#{id}
+    </delete>
+</mapper>  
